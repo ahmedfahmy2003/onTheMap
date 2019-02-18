@@ -56,7 +56,6 @@ class MapViewController: ContainerViewController, MKMapViewDelegate {
             annotation.coordinate = coordinate
             annotation.title = "\(first ?? "") \(last ?? "")"
             annotation.subtitle = mediaURL
-            
             // Finally we place the annotation in an array of annotations.
             annotations.append(annotation)
         }
@@ -72,7 +71,6 @@ class MapViewController: ContainerViewController, MKMapViewDelegate {
     // decoration alternatives. Notice the similarity between this method and the cellForRowAtIndexPath
     // method in TableViewDataSource.
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-        
         let reuseId = "pin"
         
         var pinView = mapView.dequeueReusableAnnotationView(withIdentifier: reuseId) as? MKPinAnnotationView
@@ -99,6 +97,8 @@ class MapViewController: ContainerViewController, MKMapViewDelegate {
             if let toOpen = view.annotation?.subtitle!,
                 let url = URL(string: toOpen), app.canOpenURL(url) {
                 app.open(url, options: [:], completionHandler: nil)
+            }else{
+                showAlert(title: "Invalid URL", message: "Cannot Open URL")
             }
         }
     }

@@ -23,6 +23,8 @@ class LoginViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         updateView()
+        emailTextField.text = "ahmed.fahmy.hassan@gmail.com"
+        passwordTextField.text = "hpld1717"
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -71,6 +73,7 @@ class LoginViewController: UIViewController {
         enableForm(false)
         API.postSession(username: email, password: password) { (errString) in
             ai.stopAnimating()
+            self.enableForm(true)
             guard errString == nil else {
                 self.showAlert(title: "Error", message: errString!)
                 return

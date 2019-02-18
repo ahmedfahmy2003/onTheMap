@@ -49,7 +49,11 @@ class AddLocationViewController: UIViewController {
         let ai = self.startAnActivityIndicator()
         
         CLGeocoder().geocodeAddressString(studentLocation.mapString!) { (placeMarks, err) in
-           
+            guard err == nil else {
+                ai.stopAnimating()
+                self.showAlert(title: "Location not found!", message: "There was a problem searching This location")
+                return
+            }
             ai.stopAnimating()
             
             guard let firstLocation = placeMarks?.first?.location else { return }
